@@ -9,15 +9,37 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, "Malgun Gothic", sans-serif;
+      font-family: Arial, "Malgun Gothic", "Meiryo", sans-serif;
       background: #f3f6fa;
       color: #172b4d;
     }
     header {
       background: #102b46;
       color: white;
-      padding: 28px 20px;
+      padding: 22px 20px 28px;
       text-align: center;
+    }
+    .language-bar {
+      width: min(100%, 620px);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+    .language-bar label {
+      font-size: 13px;
+      color: #d2dfed;
+    }
+    .language-bar select {
+      min-width: 145px;
+      padding: 9px 11px;
+      border: 1px solid #8da5bd;
+      border-radius: 8px;
+      background: #fff;
+      color: #172b4d;
+      font-size: 14px;
+      cursor: pointer;
     }
     header .brand {
       font-size: 13px;
@@ -25,26 +47,13 @@
       color: #8fd3ff;
       font-weight: bold;
     }
-    header h1 {
-      margin: 10px 0 6px;
-      font-size: 28px;
-    }
-    header p {
-      margin: 0;
-      color: #d2dfed;
-      font-size: 14px;
-    }
-    main {
-      width: min(100% - 32px, 620px);
-      margin: 24px auto 40px;
-    }
+    header h1 { margin: 10px 0 6px; font-size: 28px; }
+    header p { margin: 0; color: #d2dfed; font-size: 14px; }
+    main { width: min(100% - 32px, 620px); margin: 24px auto 40px; }
     .intro { margin-bottom: 20px; }
     .intro h2 { font-size: 21px; margin-bottom: 8px; }
     .intro p { color: #62738a; line-height: 1.6; font-size: 14px; }
-    .menu {
-      display: grid;
-      gap: 13px;
-    }
+    .menu { display: grid; gap: 13px; }
     .menu button {
       width: 100%;
       display: flex;
@@ -87,6 +96,7 @@
       border-radius: 14px;
       padding: 22px;
       line-height: 1.8;
+      margin-top: 14px;
     }
     .page h2 { font-size: 22px; line-height: 1.4; }
     .page h3 { margin-top: 25px; font-size: 17px; }
@@ -106,6 +116,7 @@
       padding: 12px 14px;
       border-radius: 5px;
       font-size: 13px;
+      margin: 16px 0;
     }
     footer {
       text-align: center;
@@ -114,55 +125,72 @@
       padding: 20px;
     }
     [hidden] { display: none !important; }
+    button:focus-visible, select:focus-visible {
+      outline: 3px solid #69bfff;
+      outline-offset: 3px;
+    }
+    @media (max-width: 420px) {
+      header { padding: 16px 16px 24px; }
+      header h1 { font-size: 24px; }
+      .language-bar { justify-content: center; }
+      .menu button { padding: 16px 13px; gap: 12px; }
+      .num { width: 43px; height: 43px; }
+      .page { padding: 17px; }
+    }
   </style>
 </head>
 <body>
   <header>
+    <div class="language-bar">
+      <label for="languageSelect" id="languageLabel">Language</label>
+      <select id="languageSelect" aria-label="Select language">
+        <option value="ko">한국어</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
     <div class="brand">ACE TURBO</div>
     <h1>Blower Digital Manual</h1>
-    <p>블로워 운전 및 유지보수 가이드</p>
+    <p id="headerSubtitle">블로워 운전 및 유지보수 가이드</p>
   </header>
 
   <main>
     <section id="home">
       <div class="intro">
-        <h2>무엇을 확인하시겠습니까?</h2>
-        <p>원하는 항목을 선택하면 상세 안내 화면으로 이동합니다.</p>
+        <h2 id="homeTitle">무엇을 확인하시겠습니까?</h2>
+        <p id="homeDescription">원하는 항목을 선택하면 상세 안내 화면으로 이동합니다.</p>
       </div>
-
       <div class="menu">
-        <button onclick="showPage('operation')">
+        <button type="button" onclick="showPage('operation')">
           <span class="num">01</span>
           <span>
-            <strong>블로워 운전</strong>
-            <small>기동, 정지 및 운전 모드 안내</small>
+            <strong id="menu-operation-title">블로워 운전</strong>
+            <small id="menu-operation-desc">기동, 정지 및 운전 모드 안내</small>
           </span>
           <span class="arrow">›</span>
         </button>
-
-        <button onclick="showPage('caution')">
+        <button type="button" onclick="showPage('caution')">
           <span class="num">02</span>
           <span>
-            <strong>사용 시 주의사항</strong>
-            <small>안전한 운전과 주의 사항 확인</small>
+            <strong id="menu-caution-title">사용 시 주의사항</strong>
+            <small id="menu-caution-desc">안전한 운전과 주의 사항 확인</small>
           </span>
           <span class="arrow">›</span>
         </button>
-
-        <button onclick="showPage('maintenance')">
+        <button type="button" onclick="showPage('maintenance')">
           <span class="num">03</span>
           <span>
-            <strong>블로워 점검 및 관리</strong>
-            <small>일상 점검 및 정기 유지보수</small>
+            <strong id="menu-maintenance-title">블로워 점검 및 관리</strong>
+            <small id="menu-maintenance-desc">일상 점검 및 정기 유지보수</small>
           </span>
           <span class="arrow">›</span>
         </button>
-
-        <button onclick="showPage('trip')">
+        <button type="button" onclick="showPage('trip')">
           <span class="num">04</span>
           <span>
-            <strong>트립 발생 시 조치</strong>
-            <small>알람 확인 및 고장 대응 절차</small>
+            <strong id="menu-trip-title">트립 발생 시 조치</strong>
+            <small id="menu-trip-desc">알람 확인 및 고장 대응 절차</small>
           </span>
           <span class="arrow">›</span>
         </button>
@@ -170,7 +198,7 @@
     </section>
 
     <section id="detail" hidden>
-      <button class="back" onclick="showHome()">← 초기 화면</button>
+      <button class="back" id="backButton" type="button" onclick="showHome()">← 초기 화면</button>
       <article class="page">
         <h2 id="pageTitle"></h2>
         <div id="pageContent"></div>
@@ -178,83 +206,368 @@
     </section>
   </main>
 
-  <footer>ACE TURBO · Digital Service Manual</footer>
+  <footer id="footerText">ACE TURBO · Digital Service Manual</footer>
 
   <script>
-    const pages = {
-      operation: {
-        title: "1. 블로워 운전",
-        content: `
-          <p>블로워의 기동 및 정지는 현장 운전 절차와 승인된 운전 매뉴얼에 따라 진행하십시오.</p>
-          <h3>운전 전 확인</h3>
-          <ul>
-            <li>전원 및 제어 전원의 정상 여부를 확인합니다.</li>
-            <li>흡입구와 토출 배관의 상태를 확인합니다.</li>
-            <li>주변에 작업자나 이물질이 없는지 확인합니다.</li>
-            <li>HMI에 활성 알람이 있는지 확인합니다.</li>
-          </ul>
-          <h3>기동 및 정지</h3>
-          <p>승인된 절차에 따라 기동하고, 압력·온도·진동 등 운전 상태를 확인합니다. 정지는 설비 운전 절차를 따르십시오.</p>
-          <div class="notice">실제 기동·정지 순서와 설정값은 해당 모델의 승인된 매뉴얼을 기준으로 보완해야 합니다.</div>
-        `
+    const translations = {
+      ko: {
+        languageLabel: "언어",
+        subtitle: "블로워 운전 및 유지보수 가이드",
+        homeTitle: "무엇을 확인하시겠습니까?",
+        homeDescription: "원하는 항목을 선택하면 상세 안내 화면으로 이동합니다.",
+        back: "← 초기 화면",
+        footer: "ACE TURBO · Digital Service Manual",
+        menus: {
+          operation: ["블로워 운전", "기동, 정지 및 운전 모드 안내"],
+          caution: ["사용 시 주의사항", "안전한 운전과 주의 사항 확인"],
+          maintenance: ["블로워 점검 및 관리", "일상 점검 및 정기 유지보수"],
+          trip: ["트립 발생 시 조치", "알람 확인 및 고장 대응 절차"]
+        },
+        pages: {
+          operation: {
+            title: "1. 블로워 운전",
+            content: `
+              <p>블로워의 기동 및 정지는 현장 운전 절차와 승인된 운전 매뉴얼에 따라 진행하십시오.</p>
+              <h3>운전 전 확인</h3>
+              <ul>
+                <li>전원 및 제어 전원의 정상 여부를 확인합니다.</li>
+                <li>흡입구와 토출 배관의 상태를 확인합니다.</li>
+                <li>주변에 작업자나 이물질이 없는지 확인합니다.</li>
+                <li>HMI에 활성 알람이 있는지 확인합니다.</li>
+              </ul>
+              <h3>기동 및 정지</h3>
+              <p>승인된 절차에 따라 기동하고, 압력·온도·진동 등 운전 상태를 확인합니다. 정지는 설비 운전 절차를 따르십시오.</p>
+              <div class="notice">실제 기동·정지 순서와 설정값은 해당 모델의 승인된 매뉴얼을 기준으로 보완해야 합니다.</div>`
+          },
+          caution: {
+            title: "2. 사용 시 주의사항",
+            content: `
+              <h3>운전 중 안전</h3>
+              <ul>
+                <li>회전체와 구동부에 접근하거나 보호 커버를 제거하지 마십시오.</li>
+                <li>운전 중 배관이나 장비를 임의로 분해하지 마십시오.</li>
+                <li>비정상적인 소음, 진동, 냄새 또는 온도가 발생하면 상태를 확인하십시오.</li>
+                <li>전기 작업은 자격을 갖춘 담당자가 안전 절차에 따라 수행해야 합니다.</li>
+              </ul>
+              <h3>정비 작업</h3>
+              <p>정비 전 장비를 안전하게 정지하고 전원을 차단한 뒤, 재기동 방지 및 잔류 에너지 제거 절차를 적용하십시오.</p>
+              <div class="notice">장비의 보호 장치나 인터록을 임의로 해제하지 마십시오.</div>`
+          },
+          maintenance: {
+            title: "3. 블로워 점검 및 관리",
+            content: `
+              <h3>일상 점검 항목</h3>
+              <ul>
+                <li>HMI 알람 및 운전 상태</li>
+                <li>흡입·토출 압력과 온도</li>
+                <li>비정상 소음 및 진동</li>
+                <li>필터 및 흡입구의 오염 상태</li>
+                <li>배관, 연결부 및 외관 상태</li>
+              </ul>
+              <h3>점검 기록</h3>
+              <p>점검 일시, 운전 시간, 측정값, 발견 사항 및 조치 내용을 기록하십시오.</p>
+              <div class="notice">점검 주기와 교체 기준은 해당 블로워 모델의 정비 매뉴얼 및 운전 환경을 기준으로 설정하십시오.</div>`
+          },
+          trip: {
+            title: "4. 트립 발생 시 조치",
+            content: `
+              <h3>초기 대응</h3>
+              <ol>
+                <li>HMI 또는 인버터에 표시된 트립 코드와 발생 시간을 기록합니다.</li>
+                <li>장비 상태와 주변 안전을 확인합니다.</li>
+                <li>알람 이력 및 관련 운전 데이터를 확보합니다.</li>
+                <li>해당 모델의 트러블슈팅 절차에 따라 원인을 점검합니다.</li>
+                <li>원인이 확인되고 안전이 확보된 후 승인된 절차에 따라 복구합니다.</li>
+              </ol>
+              <div class="notice">원인을 확인하지 않은 상태에서 반복적으로 리셋하거나 재기동하지 마십시오. 전기·기계적 위험이 있으면 담당 기술자에게 연락하십시오.</div>
+              <h3>서비스 요청 시 준비 자료</h3>
+              <ul>
+                <li>블로워 모델 및 시리얼 번호</li>
+                <li>트립 코드와 알람 화면 사진</li>
+                <li>발생 당시 압력, 온도 및 운전 조건</li>
+                <li>최근 정비 이력 및 발생 전 특이 사항</li>
+              </ul>`
+          }
+        }
       },
-      caution: {
-        title: "2. 사용 시 주의사항",
-        content: `
-          <h3>운전 중 안전</h3>
-          <ul>
-            <li>회전체와 구동부에 접근하거나 보호 커버를 제거하지 마십시오.</li>
-            <li>운전 중 배관이나 장비를 임의로 분해하지 마십시오.</li>
-            <li>비정상적인 소음, 진동, 냄새 또는 온도가 발생하면 상태를 확인하십시오.</li>
-            <li>전기 작업은 자격을 갖춘 담당자가 안전 절차에 따라 수행해야 합니다.</li>
-          </ul>
-          <h3>정비 작업</h3>
-          <p>정비 전 장비를 안전하게 정지하고 전원을 차단한 뒤, 재기동 방지 및 잔류 에너지 제거 절차를 적용하십시오.</p>
-          <div class="notice">장비의 보호 장치나 인터록을 임의로 해제하지 마십시오.</div>
-        `
+
+      ja: {
+        languageLabel: "言語",
+        subtitle: "ブロワの運転・保守ガイド",
+        homeTitle: "何を確認しますか？",
+        homeDescription: "確認したい項目を選択すると、詳細ガイドが表示されます。",
+        back: "← トップ画面",
+        footer: "ACE TURBO · デジタルサービスマニュアル",
+        menus: {
+          operation: ["ブロワの運転", "起動・停止および運転モード"],
+          caution: ["使用上の注意", "安全な運転と注意事項"],
+          maintenance: ["ブロワの点検・保守", "日常点検および定期保守"],
+          trip: ["トリップ発生時の対応", "アラーム確認と故障対応手順"]
+        },
+        pages: {
+          operation: {
+            title: "1. ブロワの運転",
+            content: `
+              <p>ブロワの起動・停止は、現場の運転手順および承認済みの運転マニュアルに従って行ってください。</p>
+              <h3>運転前の確認</h3>
+              <ul>
+                <li>主電源および制御電源が正常であることを確認します。</li>
+                <li>吸込口および吐出配管の状態を確認します。</li>
+                <li>周囲に作業者や異物がないことを確認します。</li>
+                <li>HMIに有効なアラームが表示されていないか確認します。</li>
+              </ul>
+              <h3>起動・停止</h3>
+              <p>承認された手順で起動し、圧力・温度・振動などの運転状態を確認してください。停止時も設備の運転手順に従ってください。</p>
+              <div class="notice">実際の起動・停止手順および設定値は、対象モデルの承認済みマニュアルに基づいて確認してください。</div>`
+          },
+          caution: {
+            title: "2. 使用上の注意",
+            content: `
+              <h3>運転中の安全</h3>
+              <ul>
+                <li>回転部や駆動部に近づいたり、保護カバーを取り外したりしないでください。</li>
+                <li>運転中に配管や装置を独断で分解しないでください。</li>
+                <li>異常な騒音、振動、臭い、温度が発生した場合は状態を確認してください。</li>
+                <li>電気作業は、資格を持つ担当者が安全手順に従って実施してください。</li>
+              </ul>
+              <h3>保守作業</h3>
+              <p>保守作業の前に装置を安全に停止し、電源を遮断してください。その後、再起動防止および残留エネルギーの除去手順を実施してください。</p>
+              <div class="notice">保護装置やインターロックを独断で無効にしないでください。</div>`
+          },
+          maintenance: {
+            title: "3. ブロワの点検・保守",
+            content: `
+              <h3>日常点検項目</h3>
+              <ul>
+                <li>HMIのアラームおよび運転状態</li>
+                <li>吸込・吐出圧力および温度</li>
+                <li>異常な騒音および振動</li>
+                <li>フィルターおよび吸込口の汚れ</li>
+                <li>配管、接続部および外観の状態</li>
+              </ul>
+              <h3>点検記録</h3>
+              <p>点検日時、運転時間、測定値、発見事項および対応内容を記録してください。</p>
+              <div class="notice">点検周期および交換基準は、対象モデルの保守マニュアルと運転環境に基づいて設定してください。</div>`
+          },
+          trip: {
+            title: "4. トリップ発生時の対応",
+            content: `
+              <h3>初期対応</h3>
+              <ol>
+                <li>HMIまたはインバータに表示されたトリップコードと発生時刻を記録します。</li>
+                <li>装置の状態と周囲の安全を確認します。</li>
+                <li>アラーム履歴および関連する運転データを保存します。</li>
+                <li>対象モデルのトラブルシューティング手順に従って原因を確認します。</li>
+                <li>原因を特定し、安全を確認した後、承認された手順で復旧します。</li>
+              </ol>
+              <div class="notice">原因を確認せずにリセットや再起動を繰り返さないでください。電気的・機械的な危険がある場合は、担当技術者に連絡してください。</div>
+              <h3>サービス依頼時に必要な情報</h3>
+              <ul>
+                <li>ブロワの型式およびシリアル番号</li>
+                <li>トリップコードとアラーム画面の写真</li>
+                <li>発生時の圧力、温度および運転条件</li>
+                <li>最近の保守履歴および発生前の特記事項</li>
+              </ul>`
+          }
+        }
       },
-      maintenance: {
-        title: "3. 블로워 점검 및 관리",
-        content: `
-          <h3>일상 점검 항목</h3>
-          <ul>
-            <li>HMI 알람 및 운전 상태</li>
-            <li>흡입·토출 압력과 온도</li>
-            <li>비정상 소음 및 진동</li>
-            <li>필터 및 흡입구의 오염 상태</li>
-            <li>배관, 연결부 및 외관 상태</li>
-          </ul>
-          <h3>점검 기록</h3>
-          <p>점검 일시, 운전 시간, 측정값, 발견 사항 및 조치 내용을 기록하십시오.</p>
-          <div class="notice">점검 주기와 교체 기준은 해당 블로워 모델의 정비 매뉴얼 및 운전 환경을 기준으로 설정하십시오.</div>
-        `
+
+      en: {
+        languageLabel: "Language",
+        subtitle: "Blower Operation and Maintenance Guide",
+        homeTitle: "What would you like to check?",
+        homeDescription: "Select an item to view detailed guidance.",
+        back: "← Home",
+        footer: "ACE TURBO · Digital Service Manual",
+        menus: {
+          operation: ["Blower Operation", "Startup, shutdown, and operating modes"],
+          caution: ["Safety Precautions", "Safe operation and important precautions"],
+          maintenance: ["Inspection and Maintenance", "Routine inspections and scheduled maintenance"],
+          trip: ["What to Do When a Trip Occurs", "Alarm checks and troubleshooting procedures"]
+        },
+        pages: {
+          operation: {
+            title: "1. Blower Operation",
+            content: `
+              <p>Start and stop the blower in accordance with site operating procedures and the approved operating manual.</p>
+              <h3>Pre-Operation Checks</h3>
+              <ul>
+                <li>Verify that the main and control power supplies are normal.</li>
+                <li>Check the condition of the inlet and discharge piping.</li>
+                <li>Ensure that personnel and foreign objects are clear of the equipment.</li>
+                <li>Check the HMI for active alarms.</li>
+              </ul>
+              <h3>Startup and Shutdown</h3>
+              <p>Start the blower using the approved procedure and monitor operating conditions, including pressure, temperature, and vibration. Follow the site procedure for shutdown.</p>
+              <div class="notice">Confirm the actual startup/shutdown sequence and setpoints in the approved manual for the specific model.</div>`
+          },
+          caution: {
+            title: "2. Safety Precautions",
+            content: `
+              <h3>Safety During Operation</h3>
+              <ul>
+                <li>Do not approach rotating or drive components or remove protective covers.</li>
+                <li>Do not disassemble piping or equipment while it is operating.</li>
+                <li>Check the equipment if abnormal noise, vibration, odor, or temperature occurs.</li>
+                <li>Electrical work must be performed by qualified personnel in accordance with safety procedures.</li>
+              </ul>
+              <h3>Maintenance Work</h3>
+              <p>Before maintenance, safely stop the equipment and isolate the power supply. Apply lockout/tagout and remove residual energy in accordance with site safety procedures.</p>
+              <div class="notice">Never bypass or disable protective devices or interlocks without authorization.</div>`
+          },
+          maintenance: {
+            title: "3. Inspection and Maintenance",
+            content: `
+              <h3>Routine Inspection Items</h3>
+              <ul>
+                <li>HMI alarms and operating status</li>
+                <li>Inlet/discharge pressure and temperature</li>
+                <li>Abnormal noise and vibration</li>
+                <li>Filter and inlet contamination</li>
+                <li>Piping, connections, and external condition</li>
+              </ul>
+              <h3>Inspection Records</h3>
+              <p>Record the inspection date and time, operating hours, measured values, findings, and corrective actions.</p>
+              <div class="notice">Set inspection intervals and replacement criteria according to the maintenance manual for the specific blower model and its operating environment.</div>`
+          },
+          trip: {
+            title: "4. What to Do When a Trip Occurs",
+            content: `
+              <h3>Initial Response</h3>
+              <ol>
+                <li>Record the trip code and time shown on the HMI or inverter.</li>
+                <li>Check the equipment condition and ensure the surrounding area is safe.</li>
+                <li>Save the alarm history and relevant operating data.</li>
+                <li>Investigate the cause using the troubleshooting procedure for the specific model.</li>
+                <li>Restore operation only after the cause is identified and safety is confirmed, following the approved procedure.</li>
+              </ol>
+              <div class="notice">Do not repeatedly reset or restart the equipment before identifying the cause. Contact the responsible technician if an electrical or mechanical hazard is suspected.</div>
+              <h3>Information to Prepare for a Service Request</h3>
+              <ul>
+                <li>Blower model and serial number</li>
+                <li>Trip code and a photo of the alarm screen</li>
+                <li>Pressure, temperature, and operating conditions at the time of the event</li>
+                <li>Recent maintenance history and any unusual events before the trip</li>
+              </ul>`
+          }
+        }
       },
-      trip: {
-        title: "4. 트립 발생 시 조치",
-        content: `
-          <h3>초기 대응</h3>
-          <ol>
-            <li>HMI 또는 인버터에 표시된 트립 코드와 발생 시간을 기록합니다.</li>
-            <li>장비 상태와 주변 안전을 확인합니다.</li>
-            <li>알람 이력 및 관련 운전 데이터를 확보합니다.</li>
-            <li>해당 모델의 트러블슈팅 절차에 따라 원인을 점검합니다.</li>
-            <li>원인이 확인되고 안전이 확보된 후 승인된 절차에 따라 복구합니다.</li>
-          </ol>
-          <div class="notice">원인을 확인하지 않은 상태에서 반복적으로 리셋하거나 재기동하지 마십시오. 전기·기계적 위험이 있으면 담당 기술자에게 연락하십시오.</div>
-          <h3>서비스 요청 시 준비 자료</h3>
-          <ul>
-            <li>블로워 모델 및 시리얼 번호</li>
-            <li>트립 코드와 알람 화면 사진</li>
-            <li>발생 당시 압력, 온도 및 운전 조건</li>
-            <li>최근 정비 이력 및 발생 전 특이 사항</li>
-          </ul>
-        `
+
+      es: {
+        languageLabel: "Idioma",
+        subtitle: "Guía de operación y mantenimiento del soplador",
+        homeTitle: "¿Qué desea consultar?",
+        homeDescription: "Seleccione una opción para ver la información detallada.",
+        back: "← Inicio",
+        footer: "ACE TURBO · Manual de servicio digital",
+        menus: {
+          operation: ["Operación del soplador", "Arranque, parada y modos de operación"],
+          caution: ["Precauciones de seguridad", "Operación segura y precauciones importantes"],
+          maintenance: ["Inspección y mantenimiento", "Inspecciones rutinarias y mantenimiento periódico"],
+          trip: ["Qué hacer cuando se produce un disparo", "Comprobación de alarmas y procedimientos de diagnóstico"]
+        },
+        pages: {
+          operation: {
+            title: "1. Operación del soplador",
+            content: `
+              <p>Arranque y detenga el soplador de acuerdo con los procedimientos operativos de la instalación y el manual de operación aprobado.</p>
+              <h3>Comprobaciones antes de operar</h3>
+              <ul>
+                <li>Verifique que la alimentación principal y la alimentación de control sean normales.</li>
+                <li>Compruebe el estado de la entrada de aire y de las tuberías de descarga.</li>
+                <li>Asegúrese de que no haya personal ni objetos extraños cerca del equipo.</li>
+                <li>Compruebe si hay alarmas activas en la HMI.</li>
+              </ul>
+              <h3>Arranque y parada</h3>
+              <p>Arranque el equipo siguiendo el procedimiento aprobado y supervise la presión, la temperatura y la vibración. Para detenerlo, siga el procedimiento operativo de la instalación.</p>
+              <div class="notice">Confirme la secuencia real de arranque/parada y los valores de ajuste en el manual aprobado del modelo correspondiente.</div>`
+          },
+          caution: {
+            title: "2. Precauciones de seguridad",
+            content: `
+              <h3>Seguridad durante la operación</h3>
+              <ul>
+                <li>No se acerque a las piezas giratorias o de accionamiento ni retire las cubiertas de protección.</li>
+                <li>No desmonte tuberías ni equipos mientras estén en funcionamiento.</li>
+                <li>Compruebe el estado del equipo si aparecen ruidos, vibraciones, olores o temperaturas anormales.</li>
+                <li>Los trabajos eléctricos deben ser realizados por personal cualificado siguiendo los procedimientos de seguridad.</li>
+              </ul>
+              <h3>Trabajos de mantenimiento</h3>
+              <p>Antes del mantenimiento, detenga el equipo de forma segura y aísle la alimentación eléctrica. Aplique el procedimiento de bloqueo y etiquetado y elimine la energía residual conforme a las normas de seguridad de la instalación.</p>
+              <div class="notice">No anule ni desactive los dispositivos de protección o los enclavamientos sin autorización.</div>`
+          },
+          maintenance: {
+            title: "3. Inspección y mantenimiento",
+            content: `
+              <h3>Elementos de inspección rutinaria</h3>
+              <ul>
+                <li>Alarmas de la HMI y estado de funcionamiento</li>
+                <li>Presión y temperatura de entrada y descarga</li>
+                <li>Ruidos y vibraciones anormales</li>
+                <li>Estado de limpieza del filtro y de la entrada de aire</li>
+                <li>Estado de las tuberías, conexiones y superficies externas</li>
+              </ul>
+              <h3>Registro de inspección</h3>
+              <p>Registre la fecha y hora de la inspección, las horas de funcionamiento, los valores medidos, los hallazgos y las acciones correctivas.</p>
+              <div class="notice">Establezca los intervalos de inspección y los criterios de sustitución según el manual de mantenimiento del modelo y las condiciones de funcionamiento.</div>`
+          },
+          trip: {
+            title: "4. Qué hacer cuando se produce un disparo",
+            content: `
+              <h3>Respuesta inicial</h3>
+              <ol>
+                <li>Registre el código de disparo y la hora que aparecen en la HMI o en el variador.</li>
+                <li>Compruebe el estado del equipo y la seguridad del área.</li>
+                <li>Guarde el historial de alarmas y los datos de funcionamiento relevantes.</li>
+                <li>Investigue la causa siguiendo el procedimiento de diagnóstico del modelo correspondiente.</li>
+                <li>Restablezca el funcionamiento únicamente después de identificar la causa y confirmar que es seguro, siguiendo el procedimiento aprobado.</li>
+              </ol>
+              <div class="notice">No reinicie ni restablezca repetidamente el equipo sin identificar la causa. Si sospecha un riesgo eléctrico o mecánico, contacte con el técnico responsable.</div>
+              <h3>Información necesaria para solicitar servicio</h3>
+              <ul>
+                <li>Modelo y número de serie del soplador</li>
+                <li>Código de disparo y fotografía de la pantalla de alarma</li>
+                <li>Presión, temperatura y condiciones de funcionamiento en el momento del evento</li>
+                <li>Historial reciente de mantenimiento y cualquier anomalía previa</li>
+              </ul>`
+          }
+        }
       }
     };
 
+    const languageSelect = document.getElementById("languageSelect");
+    let currentPage = null;
+
+    function applyLanguage(language) {
+      const lang = translations[language] ? language : "ko";
+      const t = translations[lang];
+
+      document.documentElement.lang = lang;
+      document.getElementById("languageLabel").textContent = t.languageLabel;
+      languageSelect.setAttribute("aria-label", t.languageLabel);
+      document.getElementById("headerSubtitle").textContent = t.subtitle;
+      document.getElementById("homeTitle").textContent = t.homeTitle;
+      document.getElementById("homeDescription").textContent = t.homeDescription;
+      document.getElementById("backButton").textContent = t.back;
+      document.getElementById("footerText").textContent = t.footer;
+
+      Object.keys(t.menus).forEach((id) => {
+        document.getElementById(`menu-${id}-title`).textContent = t.menus[id][0];
+        document.getElementById(`menu-${id}-desc`).textContent = t.menus[id][1];
+      });
+
+      if (currentPage && t.pages[currentPage]) {
+        document.getElementById("pageTitle").textContent = t.pages[currentPage].title;
+        document.getElementById("pageContent").innerHTML = t.pages[currentPage].content;
+      }
+    }
+
     function showPage(id) {
-      const page = pages[id];
+      const lang = languageSelect.value;
+      const page = translations[lang].pages[id];
       if (!page) return;
+
+      currentPage = id;
       document.getElementById("home").hidden = true;
       document.getElementById("detail").hidden = false;
       document.getElementById("pageTitle").textContent = page.title;
@@ -263,10 +576,17 @@
     }
 
     function showHome() {
+      currentPage = null;
       document.getElementById("detail").hidden = true;
       document.getElementById("home").hidden = false;
       window.scrollTo(0, 0);
     }
+
+    languageSelect.addEventListener("change", (event) => {
+      applyLanguage(event.target.value);
+    });
+
+    applyLanguage("ko");
   </script>
 </body>
 </html>
